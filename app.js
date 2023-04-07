@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import mongoose from 'mongoose';
 import 'dotenv/config.js';
 import usersRouter from './controllers/users.controller.js';
@@ -15,9 +16,11 @@ mongoose
     console.log('error conneting to db: ', error.message);
   });
 
+app.use(cors());
 app.use(express.json());
 
 app.use(requestlogger);
+
 app.use('/api/users', usersRouter);
 
 const PORT = process.env.PORT || 3001;
