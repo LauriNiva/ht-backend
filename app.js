@@ -2,18 +2,11 @@ import express from 'express';
 import mongoose from 'mongoose';
 import 'dotenv/config.js';
 import usersRouter from './controllers/users.controller.js';
+import requestlogger from './utils/requestlogger.js';
 
 const app = express();
 
-const requestlogger = (request, response, next) => {
-  console.log('---REQUEST LOGGER---');
-  console.log('Method:', request.method);
-  console.log('Path:  ', request.path);
-  console.log('Body:  ', request.body);
-  console.log('Headers:  ', request.headers);
-  console.log('^^------------^^');
-  next();
-};
+
 
 mongoose
   .connect(process.env.MONGODB_URI)
