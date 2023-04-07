@@ -39,10 +39,12 @@ usersRouter.delete('/:id', async (req, res) => {
 
 usersRouter.patch('/:id', async (req, res) => {
   const userId = req.params.id;
-  console.log('userId', userId)
+  console.log('userId', userId);
   const { updatedUserData } = req.body;
   try {
-    const updatedUser = await User.findByIdAndUpdate(userId, updatedUserData, {new: true})
+    const updatedUser = await User.findByIdAndUpdate(userId, updatedUserData, {
+      new: true,
+    });
     res.json(updatedUser);
   } catch (error) {
     console.log('Error while trying to update an user', error);

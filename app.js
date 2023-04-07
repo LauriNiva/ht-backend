@@ -6,8 +6,6 @@ import requestlogger from './utils/requestlogger.js';
 
 const app = express();
 
-
-
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
