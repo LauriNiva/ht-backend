@@ -1,4 +1,10 @@
-export default function requestlogger (request, response, next){
+import { NextFunction, Request, Response } from 'express';
+
+export default function requestlogger(
+  request: Request,
+  _response: Response,
+  next: NextFunction
+): void {
   console.log('---REQUEST LOGGER---');
   console.log('Method:', request.method);
   console.log('Path:  ', request.path);
@@ -6,4 +12,4 @@ export default function requestlogger (request, response, next){
   console.log('Headers:  ', request.headers);
   console.log('^^------------^^');
   next();
-};
+}
