@@ -1,11 +1,12 @@
-import express from 'express';
+import express, { Router } from 'express';
 import User from '../models/users.model.js';
+import { NewUserType, UserType } from '../User.type.js';
 
-const usersRouter = express.Router();
+const usersRouter: Router = express.Router();
 
-usersRouter.get('/', async (req, res) => {
+usersRouter.get('/', async (_req, res) => {
   try {
-    const users = await User.find();
+    const users: UserType[] = await User.find();
     res.json(users);
   } catch (error) {
     console.log('Error fetching users', error);
@@ -14,20 +15,19 @@ usersRouter.get('/', async (req, res) => {
 });
 
 usersRouter.post('/', async (req, res) => {
-  const { newUserData } = req.body;
+  const { newUserData }: { newUserData: NewUserType } = req.body;
   try {
     const newUser = new User(newUserData);
-    const createdUser = await newUser.save();
+    const createdUser: UserType = await newUser.save();
     res.json(createdUser);
   } catch (error) {
     console.log('Error while creating new user', error);
-    //VIRHEEN LUKU JA OHJAUS
     res.status(500).json({ error: error });
   }
 });
 
 usersRouter.delete('/:id', async (req, res) => {
-  const userId = req.params.id;
+  const userId: string = req.params.id;
   try {
     await User.findByIdAndDelete(userId);
     res.status(204).end();
@@ -38,9 +38,9 @@ usersRouter.delete('/:id', async (req, res) => {
 });
 
 usersRouter.patch('/:id', async (req, res) => {
-  const userId = req.params.id;
+  const userId: string = req.params.id;
   console.log('userId', userId);
-  const { updatedUserData } = req.body;
+  const { updatedUserData }: { updatedUserData: NewUserType } = req.body;
   try {
     const updatedUser = await User.findByIdAndUpdate(userId, updatedUserData, {
       new: true,

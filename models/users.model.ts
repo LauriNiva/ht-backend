@@ -1,6 +1,7 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
+import { UserType } from '../User.type';
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema<UserType>({
   name: {
     type: String,
     required: true,
@@ -52,4 +53,4 @@ userSchema.set('toJSON', {
   },
 });
 
-export default mongoose.model('User', userSchema);
+export default model('User', userSchema);
