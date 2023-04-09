@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { MongoError } from 'mongodb';
+import { MongoError, MongoServerError } from 'mongodb';
 
 export default function errorHandler(
   error: Error,
@@ -17,7 +17,9 @@ export default function errorHandler(
     error.name === 'MongoServerError' &&
     (error as MongoError).code === 11000
   ) {
-    return response.status(400).json({ error: `must be unique` });
+    const errorReason =
+      (error as MongoServerError).keyValue?.username ?? 'username';
+    return response.status(400).json({ error: `${errorReason} is taken` });
   }
 
   next(error);
