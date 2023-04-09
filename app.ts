@@ -1,9 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import 'express-async-errors';
 import 'dotenv/config.js';
 import usersRouter from './controllers/users.controller.js';
 import requestlogger from './utils/requestlogger.js';
+import errorHandler from './utils/errorhandler.js';
 
 const app = express();
 
@@ -26,6 +28,8 @@ app.use(express.json());
 app.use(requestlogger);
 
 app.use('/api/users', usersRouter);
+
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 3001;
 
