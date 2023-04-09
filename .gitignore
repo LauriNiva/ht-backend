@@ -4,3 +4,4 @@ node_modules
 zzz.txt
 api.rest
 .deployment
+dist
